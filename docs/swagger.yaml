@@ -1,0 +1,206 @@
+basePath: /api
+definitions:
+  github_com_Lomank123_go-integration-minio_pkg_client_dto.FileContentV1RequestDTO:
+    properties:
+      bucketName:
+        type: string
+      fileName:
+        type: string
+    required:
+    - bucketName
+    - fileName
+    type: object
+  github_com_Lomank123_go-integration-minio_pkg_client_dto.FileContentV1ResponseDTO:
+    properties:
+      content:
+        type: string
+    type: object
+  github_com_Lomank123_go-integration-minio_pkg_client_dto.FileDeleteV1RequestDTO:
+    properties:
+      bucketName:
+        type: string
+      fileName:
+        type: string
+    required:
+    - bucketName
+    - fileName
+    type: object
+  github_com_Lomank123_go-integration-minio_pkg_client_dto.FileDeleteV1ResponseDTO:
+    properties:
+      message:
+        type: string
+    type: object
+  github_com_Lomank123_go-integration-minio_pkg_client_dto.FileURLV1RequestDTO:
+    properties:
+      bucketName:
+        type: string
+      fileName:
+        type: string
+    required:
+    - bucketName
+    - fileName
+    type: object
+  github_com_Lomank123_go-integration-minio_pkg_client_dto.FileURLV1ResponseDTO:
+    properties:
+      url:
+        type: string
+    type: object
+  github_com_Lomank123_go-integration-minio_pkg_client_dto.FileUploadV1ResponseDTO:
+    properties:
+      fileName:
+        type: string
+      message:
+        type: string
+    type: object
+info:
+  contact: {}
+  title: Minio Integration API
+  version: "1.0"
+paths:
+  /v1/minio/delete:
+    post:
+      consumes:
+      - application/json
+      description: Delete a file from MinIO storage
+      parameters:
+      - description: Delete file request
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/github_com_Lomank123_go-integration-minio_pkg_client_dto.FileDeleteV1RequestDTO'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/github_com_Lomank123_go-integration-minio_pkg_client_dto.FileDeleteV1ResponseDTO'
+      summary: Delete a file
+      tags:
+      - minio
+  /v1/minio/file/{filename}:
+    get:
+      consumes:
+      - application/json
+      description: Download a file directly from MinIO storage
+      parameters:
+      - description: Filename to download
+        in: path
+        name: filename
+        required: true
+        type: string
+      - description: Bucket name
+        in: query
+        name: bucket_name
+        required: true
+        type: string
+      produces:
+      - application/octet-stream
+      responses:
+        "200":
+          description: File content
+          schema:
+            type: file
+        "400":
+          description: Bad Request - Missing filename or bucket name
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "404":
+          description: Not Found - File not found
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Download a file
+      tags:
+      - minio
+  /v1/minio/get-file-content:
+    post:
+      consumes:
+      - application/json
+      description: Get the content of a file from MinIO storage
+      parameters:
+      - description: Get file content request
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/github_com_Lomank123_go-integration-minio_pkg_client_dto.FileContentV1RequestDTO'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/github_com_Lomank123_go-integration-minio_pkg_client_dto.FileContentV1ResponseDTO'
+      summary: Get file content
+      tags:
+      - minio
+  /v1/minio/get-file-url:
+    post:
+      consumes:
+      - application/json
+      description: Get a presigned URL for a file from MinIO storage
+      parameters:
+      - description: Get file URL request
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/github_com_Lomank123_go-integration-minio_pkg_client_dto.FileURLV1RequestDTO'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/github_com_Lomank123_go-integration-minio_pkg_client_dto.FileURLV1ResponseDTO'
+      summary: Get file URL
+      tags:
+      - minio
+  /v1/minio/upload:
+    post:
+      consumes:
+      - multipart/form-data
+      description: Upload a file to MinIO storage
+      parameters:
+      - description: File to upload
+        in: formData
+        name: file
+        required: true
+        type: file
+      - description: Bucket name
+        in: formData
+        name: bucket_name
+        required: true
+        type: string
+      - description: Custom filename (optional)
+        in: formData
+        name: filename
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/github_com_Lomank123_go-integration-minio_pkg_client_dto.FileUploadV1ResponseDTO'
+        "400":
+          description: Bad Request - Invalid file or file type
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Upload a file
+      tags:
+      - minio
+swagger: "2.0"

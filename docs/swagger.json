@@ -1,0 +1,315 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "title": "Minio Integration API",
+        "contact": {},
+        "version": "1.0"
+    },
+    "basePath": "/api",
+    "paths": {
+        "/v1/minio/delete": {
+            "post": {
+                "description": "Delete a file from MinIO storage",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "minio"
+                ],
+                "summary": "Delete a file",
+                "parameters": [
+                    {
+                        "description": "Delete file request",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/github_com_Lomank123_go-integration-minio_pkg_client_dto.FileDeleteV1RequestDTO"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_Lomank123_go-integration-minio_pkg_client_dto.FileDeleteV1ResponseDTO"
+                        }
+                    }
+                }
+            }
+        },
+        "/v1/minio/file/{filename}": {
+            "get": {
+                "description": "Download a file directly from MinIO storage",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/octet-stream"
+                ],
+                "tags": [
+                    "minio"
+                ],
+                "summary": "Download a file",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Filename to download",
+                        "name": "filename",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "Bucket name",
+                        "name": "bucket_name",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "File content",
+                        "schema": {
+                            "type": "file"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request - Missing filename or bucket name",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "string"
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found - File not found",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/v1/minio/get-file-content": {
+            "post": {
+                "description": "Get the content of a file from MinIO storage",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "minio"
+                ],
+                "summary": "Get file content",
+                "parameters": [
+                    {
+                        "description": "Get file content request",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/github_com_Lomank123_go-integration-minio_pkg_client_dto.FileContentV1RequestDTO"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_Lomank123_go-integration-minio_pkg_client_dto.FileContentV1ResponseDTO"
+                        }
+                    }
+                }
+            }
+        },
+        "/v1/minio/get-file-url": {
+            "post": {
+                "description": "Get a presigned URL for a file from MinIO storage",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "minio"
+                ],
+                "summary": "Get file URL",
+                "parameters": [
+                    {
+                        "description": "Get file URL request",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/github_com_Lomank123_go-integration-minio_pkg_client_dto.FileURLV1RequestDTO"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_Lomank123_go-integration-minio_pkg_client_dto.FileURLV1ResponseDTO"
+                        }
+                    }
+                }
+            }
+        },
+        "/v1/minio/upload": {
+            "post": {
+                "description": "Upload a file to MinIO storage",
+                "consumes": [
+                    "multipart/form-data"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "minio"
+                ],
+                "summary": "Upload a file",
+                "parameters": [
+                    {
+                        "type": "file",
+                        "description": "File to upload",
+                        "name": "file",
+                        "in": "formData",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "Bucket name",
+                        "name": "bucket_name",
+                        "in": "formData",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "Custom filename (optional)",
+                        "name": "filename",
+                        "in": "formData"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_Lomank123_go-integration-minio_pkg_client_dto.FileUploadV1ResponseDTO"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request - Invalid file or file type",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "string"
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "github_com_Lomank123_go-integration-minio_pkg_client_dto.FileContentV1RequestDTO": {
+            "type": "object",
+            "required": [
+                "bucketName",
+                "fileName"
+            ],
+            "properties": {
+                "bucketName": {
+                    "type": "string"
+                },
+                "fileName": {
+                    "type": "string"
+                }
+            }
+        },
+        "github_com_Lomank123_go-integration-minio_pkg_client_dto.FileContentV1ResponseDTO": {
+            "type": "object",
+            "properties": {
+                "content": {
+                    "type": "string"
+                }
+            }
+        },
+        "github_com_Lomank123_go-integration-minio_pkg_client_dto.FileDeleteV1RequestDTO": {
+            "type": "object",
+            "required": [
+                "bucketName",
+                "fileName"
+            ],
+            "properties": {
+                "bucketName": {
+                    "type": "string"
+                },
+                "fileName": {
+                    "type": "string"
+                }
+            }
+        },
+        "github_com_Lomank123_go-integration-minio_pkg_client_dto.FileDeleteV1ResponseDTO": {
+            "type": "object",
+            "properties": {
+                "message": {
+                    "type": "string"
+                }
+            }
+        },
+        "github_com_Lomank123_go-integration-minio_pkg_client_dto.FileURLV1RequestDTO": {
+            "type": "object",
+            "required": [
+                "bucketName",
+                "fileName"
+            ],
+            "properties": {
+                "bucketName": {
+                    "type": "string"
+                },
+                "fileName": {
+                    "type": "string"
+                }
+            }
+        },
+        "github_com_Lomank123_go-integration-minio_pkg_client_dto.FileURLV1ResponseDTO": {
+            "type": "object",
+            "properties": {
+                "url": {
+                    "type": "string"
+                }
+            }
+        },
+        "github_com_Lomank123_go-integration-minio_pkg_client_dto.FileUploadV1ResponseDTO": {
+            "type": "object",
+            "properties": {
+                "fileName": {
+                    "type": "string"
+                },
+                "message": {
+                    "type": "string"
+                }
+            }
+        }
+    }
+}

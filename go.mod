@@ -6,7 +6,7 @@ replace github.com/Lomank123/go-integration-minio/pkg/client => ./pkg/client
 
 require (
 	github.com/Lomank123/go-integration-minio/pkg/client v0.0.0-00010101000000-000000000000
-	github.com/Lomank123/go-web-platform v0.0.0-20250822171926-a575b21f44d9
+	github.com/Lomank123/go-web-platform v0.0.0-20260105171025-8c334a12b6d2
 	github.com/gin-gonic/gin v1.10.0
 	github.com/minio/minio-go/v7 v7.0.69
 	github.com/swaggo/swag v1.16.4

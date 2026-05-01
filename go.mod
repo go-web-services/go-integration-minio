@@ -1,13 +1,13 @@
-module github.com/Lomank123/go-integration-minio
+module github.com/go-web-services/go-integration-minio
 
 go 1.23.4
 
-replace github.com/Lomank123/go-integration-minio/pkg/client => ./pkg/client
+replace github.com/go-web-services/go-integration-minio/pkg/client => ./pkg/client
 
 require (
-	github.com/Lomank123/go-integration-minio/pkg/client v0.0.0-00010101000000-000000000000
-	github.com/Lomank123/go-web-platform v0.0.0-20260105171025-8c334a12b6d2
 	github.com/gin-gonic/gin v1.10.0
+	github.com/go-web-services/go-integration-minio/pkg/client v0.0.0-00010101000000-000000000000
+	github.com/go-web-services/go-web-platform v0.0.0-20260501150237-122bf32135c9
 	github.com/minio/minio-go/v7 v7.0.69
 	github.com/swaggo/swag v1.16.4
 )

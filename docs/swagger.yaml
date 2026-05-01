@@ -1,6 +1,6 @@
 basePath: /api
 definitions:
-  github_com_Lomank123_go-integration-minio_pkg_client_dto.FileContentV1RequestDTO:
+  github_com_go-web-services_go-integration-minio_pkg_client_dto.FileContentV1RequestDTO:
     properties:
       bucketName:
         type: string
@@ -10,12 +10,12 @@ definitions:
     - bucketName
     - fileName
     type: object
-  github_com_Lomank123_go-integration-minio_pkg_client_dto.FileContentV1ResponseDTO:
+  github_com_go-web-services_go-integration-minio_pkg_client_dto.FileContentV1ResponseDTO:
     properties:
       content:
         type: string
     type: object
-  github_com_Lomank123_go-integration-minio_pkg_client_dto.FileDeleteV1RequestDTO:
+  github_com_go-web-services_go-integration-minio_pkg_client_dto.FileDeleteV1RequestDTO:
     properties:
       bucketName:
         type: string
@@ -25,12 +25,12 @@ definitions:
     - bucketName
     - fileName
     type: object
-  github_com_Lomank123_go-integration-minio_pkg_client_dto.FileDeleteV1ResponseDTO:
+  github_com_go-web-services_go-integration-minio_pkg_client_dto.FileDeleteV1ResponseDTO:
     properties:
       message:
         type: string
     type: object
-  github_com_Lomank123_go-integration-minio_pkg_client_dto.FileURLV1RequestDTO:
+  github_com_go-web-services_go-integration-minio_pkg_client_dto.FileURLV1RequestDTO:
     properties:
       bucketName:
         type: string
@@ -40,12 +40,12 @@ definitions:
     - bucketName
     - fileName
     type: object
-  github_com_Lomank123_go-integration-minio_pkg_client_dto.FileURLV1ResponseDTO:
+  github_com_go-web-services_go-integration-minio_pkg_client_dto.FileURLV1ResponseDTO:
     properties:
       url:
         type: string
     type: object
-  github_com_Lomank123_go-integration-minio_pkg_client_dto.FileUploadV1ResponseDTO:
+  github_com_go-web-services_go-integration-minio_pkg_client_dto.FileUploadV1ResponseDTO:
     properties:
       fileName:
         type: string
@@ -68,14 +68,14 @@ paths:
         name: request
         required: true
         schema:
-          $ref: '#/definitions/github_com_Lomank123_go-integration-minio_pkg_client_dto.FileDeleteV1RequestDTO'
+          $ref: '#/definitions/github_com_go-web-services_go-integration-minio_pkg_client_dto.FileDeleteV1RequestDTO'
       produces:
       - application/json
       responses:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/github_com_Lomank123_go-integration-minio_pkg_client_dto.FileDeleteV1ResponseDTO'
+            $ref: '#/definitions/github_com_go-web-services_go-integration-minio_pkg_client_dto.FileDeleteV1ResponseDTO'
       summary: Delete a file
       tags:
       - minio
@@ -128,14 +128,14 @@ paths:
         name: request
         required: true
         schema:
-          $ref: '#/definitions/github_com_Lomank123_go-integration-minio_pkg_client_dto.FileContentV1RequestDTO'
+          $ref: '#/definitions/github_com_go-web-services_go-integration-minio_pkg_client_dto.FileContentV1RequestDTO'
       produces:
       - application/json
       responses:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/github_com_Lomank123_go-integration-minio_pkg_client_dto.FileContentV1ResponseDTO'
+            $ref: '#/definitions/github_com_go-web-services_go-integration-minio_pkg_client_dto.FileContentV1ResponseDTO'
       summary: Get file content
       tags:
       - minio
@@ -150,14 +150,14 @@ paths:
         name: request
         required: true
         schema:
-          $ref: '#/definitions/github_com_Lomank123_go-integration-minio_pkg_client_dto.FileURLV1RequestDTO'
+          $ref: '#/definitions/github_com_go-web-services_go-integration-minio_pkg_client_dto.FileURLV1RequestDTO'
       produces:
       - application/json
       responses:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/github_com_Lomank123_go-integration-minio_pkg_client_dto.FileURLV1ResponseDTO'
+            $ref: '#/definitions/github_com_go-web-services_go-integration-minio_pkg_client_dto.FileURLV1ResponseDTO'
       summary: Get file URL
       tags:
       - minio
@@ -187,7 +187,7 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/github_com_Lomank123_go-integration-minio_pkg_client_dto.FileUploadV1ResponseDTO'
+            $ref: '#/definitions/github_com_go-web-services_go-integration-minio_pkg_client_dto.FileUploadV1ResponseDTO'
         "400":
           description: Bad Request - Invalid file or file type
           schema:

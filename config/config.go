@@ -3,8 +3,8 @@ package config
 import (
 	"strconv"
 
-	platformTypes "github.com/Lomank123/go-web-platform/types"
-	platformUtils "github.com/Lomank123/go-web-platform/utils"
+	platformTypes "github.com/go-web-services/go-web-platform/types"
+	platformUtils "github.com/go-web-services/go-web-platform/utils"
 )
 
 type AppConfig struct {

@@ -9,9 +9,9 @@ import (
 	"strings"
 	"time"
 
-	"github.com/Lomank123/go-integration-minio/config"
+	"github.com/go-web-services/go-integration-minio/config"
 
-	"github.com/Lomank123/go-web-platform/logger"
+	"github.com/go-web-services/go-web-platform/logger"
 
 	"github.com/minio/minio-go/v7"
 	"github.com/minio/minio-go/v7/pkg/credentials"

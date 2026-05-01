@@ -10,16 +10,16 @@ import (
 	"syscall"
 	"time"
 
-	platform "github.com/Lomank123/go-web-platform/entrypoint"
-	platformMiddleware "github.com/Lomank123/go-web-platform/middleware"
+	platform "github.com/go-web-services/go-web-platform/entrypoint"
+	platformMiddleware "github.com/go-web-services/go-web-platform/middleware"
 
-	"github.com/Lomank123/go-web-platform/logger"
 	"github.com/gin-gonic/gin"
+	"github.com/go-web-services/go-web-platform/logger"
 
-	"github.com/Lomank123/go-integration-minio/config"
-	"github.com/Lomank123/go-integration-minio/docs" // Required to load swagger docs
-	"github.com/Lomank123/go-integration-minio/internal/service"
-	minioHTTP "github.com/Lomank123/go-integration-minio/internal/transport/http"
+	"github.com/go-web-services/go-integration-minio/config"
+	"github.com/go-web-services/go-integration-minio/docs" // Required to load swagger docs
+	"github.com/go-web-services/go-integration-minio/internal/service"
+	minioHTTP "github.com/go-web-services/go-integration-minio/internal/transport/http"
 )
 
 // @title           Minio Integration API
@@ -53,7 +53,6 @@ func main() {
 		logg,
 		nil,
 		platformMiddleware.DefaultLoggingConfig(),
-		nil,
 		cfg.App.Env,
 	)
 

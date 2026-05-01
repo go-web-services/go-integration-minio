@@ -4,7 +4,7 @@ FROM golang:1.24-alpine
 ARG GITHUB_TOKEN
 
 ENV GO111MODULE=on \
-    GOPRIVATE=github.com/Lomank123/*
+    GOPRIVATE=github.com/go-web-services/*
 
 # Install dependencies and configure git in one layer
 RUN apk add --no-cache git ca-certificates tzdata && \

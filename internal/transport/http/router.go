@@ -1,10 +1,10 @@
 package http
 
 import (
-	"github.com/Lomank123/go-integration-minio/internal/service"
-	http "github.com/Lomank123/go-integration-minio/internal/transport/http/handler"
+	"github.com/go-web-services/go-integration-minio/internal/service"
+	http "github.com/go-web-services/go-integration-minio/internal/transport/http/handler"
 
-	"github.com/Lomank123/go-web-platform/logger"
+	"github.com/go-web-services/go-web-platform/logger"
 
 	"github.com/gin-gonic/gin"
 )

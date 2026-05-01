@@ -35,7 +35,7 @@ const docTemplate = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/github_com_Lomank123_go-integration-minio_pkg_client_dto.FileDeleteV1RequestDTO"
+                            "$ref": "#/definitions/github_com_go-web-services_go-integration-minio_pkg_client_dto.FileDeleteV1RequestDTO"
                         }
                     }
                 ],
@@ -43,7 +43,7 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/github_com_Lomank123_go-integration-minio_pkg_client_dto.FileDeleteV1ResponseDTO"
+                            "$ref": "#/definitions/github_com_go-web-services_go-integration-minio_pkg_client_dto.FileDeleteV1ResponseDTO"
                         }
                     }
                 }
@@ -126,7 +126,7 @@ const docTemplate = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/github_com_Lomank123_go-integration-minio_pkg_client_dto.FileContentV1RequestDTO"
+                            "$ref": "#/definitions/github_com_go-web-services_go-integration-minio_pkg_client_dto.FileContentV1RequestDTO"
                         }
                     }
                 ],
@@ -134,7 +134,7 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/github_com_Lomank123_go-integration-minio_pkg_client_dto.FileContentV1ResponseDTO"
+                            "$ref": "#/definitions/github_com_go-web-services_go-integration-minio_pkg_client_dto.FileContentV1ResponseDTO"
                         }
                     }
                 }
@@ -160,7 +160,7 @@ const docTemplate = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/github_com_Lomank123_go-integration-minio_pkg_client_dto.FileURLV1RequestDTO"
+                            "$ref": "#/definitions/github_com_go-web-services_go-integration-minio_pkg_client_dto.FileURLV1RequestDTO"
                         }
                     }
                 ],
@@ -168,7 +168,7 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/github_com_Lomank123_go-integration-minio_pkg_client_dto.FileURLV1ResponseDTO"
+                            "$ref": "#/definitions/github_com_go-web-services_go-integration-minio_pkg_client_dto.FileURLV1ResponseDTO"
                         }
                     }
                 }
@@ -213,7 +213,7 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/github_com_Lomank123_go-integration-minio_pkg_client_dto.FileUploadV1ResponseDTO"
+                            "$ref": "#/definitions/github_com_go-web-services_go-integration-minio_pkg_client_dto.FileUploadV1ResponseDTO"
                         }
                     },
                     "400": {
@@ -239,7 +239,7 @@ const docTemplate = `{
         }
     },
     "definitions": {
-        "github_com_Lomank123_go-integration-minio_pkg_client_dto.FileContentV1RequestDTO": {
+        "github_com_go-web-services_go-integration-minio_pkg_client_dto.FileContentV1RequestDTO": {
             "type": "object",
             "required": [
                 "bucketName",
@@ -254,7 +254,7 @@ const docTemplate = `{
                 }
             }
         },
-        "github_com_Lomank123_go-integration-minio_pkg_client_dto.FileContentV1ResponseDTO": {
+        "github_com_go-web-services_go-integration-minio_pkg_client_dto.FileContentV1ResponseDTO": {
             "type": "object",
             "properties": {
                 "content": {
@@ -262,7 +262,7 @@ const docTemplate = `{
                 }
             }
         },
-        "github_com_Lomank123_go-integration-minio_pkg_client_dto.FileDeleteV1RequestDTO": {
+        "github_com_go-web-services_go-integration-minio_pkg_client_dto.FileDeleteV1RequestDTO": {
             "type": "object",
             "required": [
                 "bucketName",
@@ -277,7 +277,7 @@ const docTemplate = `{
                 }
             }
         },
-        "github_com_Lomank123_go-integration-minio_pkg_client_dto.FileDeleteV1ResponseDTO": {
+        "github_com_go-web-services_go-integration-minio_pkg_client_dto.FileDeleteV1ResponseDTO": {
             "type": "object",
             "properties": {
                 "message": {
@@ -285,7 +285,7 @@ const docTemplate = `{
                 }
             }
         },
-        "github_com_Lomank123_go-integration-minio_pkg_client_dto.FileURLV1RequestDTO": {
+        "github_com_go-web-services_go-integration-minio_pkg_client_dto.FileURLV1RequestDTO": {
             "type": "object",
             "required": [
                 "bucketName",
@@ -300,7 +300,7 @@ const docTemplate = `{
                 }
             }
         },
-        "github_com_Lomank123_go-integration-minio_pkg_client_dto.FileURLV1ResponseDTO": {
+        "github_com_go-web-services_go-integration-minio_pkg_client_dto.FileURLV1ResponseDTO": {
             "type": "object",
             "properties": {
                 "url": {
@@ -308,7 +308,7 @@ const docTemplate = `{
                 }
             }
         },
-        "github_com_Lomank123_go-integration-minio_pkg_client_dto.FileUploadV1ResponseDTO": {
+        "github_com_go-web-services_go-integration-minio_pkg_client_dto.FileUploadV1ResponseDTO": {
             "type": "object",
             "properties": {
                 "fileName": {

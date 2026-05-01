@@ -1,5 +1,3 @@
-github.com/Lomank123/go-web-platform v0.0.0-20250822171926-a575b21f44d9 h1:BwmOSKgzE0Cq1NTYY7nm45assumZ1EgJ9buiKa9q4Os=
-github.com/Lomank123/go-web-platform v0.0.0-20250822171926-a575b21f44d9/go.mod h1:q/epj5yYWyQZZXYU+9h9dwwve8Q+1jhgNCEhVyFjyrw=
 github.com/andybalholm/brotli v1.2.0 h1:ukwgCxwYrmACq68yiUqwIWnGY0cTPox/M94sVwToPjQ=
 github.com/andybalholm/brotli v1.2.0/go.mod h1:rzTDkvFWvIrjDXZHkuS16NPggd91W3kUSvPlQ1pLaKY=
 github.com/bytedance/sonic v1.11.6 h1:oUp34TzMlL+OY1OUWxHqsdkgC/Zfc85zGqw9siXjrc0=
@@ -27,6 +25,8 @@ github.com/go-playground/universal-translator v0.18.1 h1:Bcnm0ZwsGyWbCzImXv+pAJn
 github.com/go-playground/universal-translator v0.18.1/go.mod h1:xekY+UJKNuX9WP91TpwSH2VMlDf28Uj24BCp08ZFTUY=
 github.com/go-playground/validator/v10 v10.25.0 h1:5Dh7cjvzR7BRZadnsVOzPhWsrwUr0nmsZJxEAnFLNO8=
 github.com/go-playground/validator/v10 v10.25.0/go.mod h1:GGzBIJMuE98Ic/kJsBXbz1x/7cByt++cQ+YOuDM5wus=
+github.com/go-web-services/go-web-platform v0.0.0-20260501150237-122bf32135c9 h1:TpyRfYCcO/l9gfG1k6RtGzZ8DPRr2NsSeVFd5uFEm9A=
+github.com/go-web-services/go-web-platform v0.0.0-20260501150237-122bf32135c9/go.mod h1:IKBmu4vdNiM0En4EHMgJTsOEUy6lp/Gn0Df6J2vUa/Q=
 github.com/goccy/go-json v0.10.2 h1:CrxCmQqYDkv1z7lO7Wbh2HN93uovUHgrECaO5ZrCXAU=
 github.com/goccy/go-json v0.10.2/go.mod h1:6MelG93GURQebXPDq3khkgXZkazVtN9CRI+MGFi0w8I=
 github.com/google/go-cmp v0.5.5 h1:Khx7svrCpmxxtHBq5j2mp/xVjsi8hQMfNLvJFAlrGgU=

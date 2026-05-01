@@ -5,14 +5,13 @@ import (
 	"net/http"
 	"path/filepath"
 
-	"github.com/Lomank123/go-web-platform/logger"
-
 	"github.com/gin-gonic/gin"
 
-	"github.com/Lomank123/go-integration-minio/internal/service"
-
-	clientDTO "github.com/Lomank123/go-integration-minio/pkg/client/dto"
-	platformError "github.com/Lomank123/go-web-platform/error"
+	"github.com/go-web-services/go-integration-minio/internal/service"
+	clientDTO "github.com/go-web-services/go-integration-minio/pkg/client/dto"
+	platformConstants "github.com/go-web-services/go-web-platform/constants"
+	platformError "github.com/go-web-services/go-web-platform/error"
+	"github.com/go-web-services/go-web-platform/logger"
 )
 
 type MinioHandler interface {
@@ -49,13 +48,13 @@ func (eh *minioHandler) UploadFileV1(c *gin.Context) {
 
 	file, err := c.FormFile("file")
 	if err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "No file uploaded"})
+		_ = c.Error(platformError.NewError(platformConstants.InvalidRequestPayload, "No file uploaded"))
 		return
 	}
 
 	bucketName := c.PostForm("bucket_name")
 	if bucketName == "" {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "Bucket name is required"})
+		_ = c.Error(platformError.NewError(platformConstants.InvalidRequestPayload, "Bucket name is required"))
 		return
 	}
 
@@ -64,7 +63,7 @@ func (eh *minioHandler) UploadFileV1(c *gin.Context) {
 
 	// Validate file size (e.g., max 100MB)
 	if file.Size > 100<<20 {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "File size exceeds 100MB limit"})
+		_ = c.Error(platformError.NewError(platformConstants.InvalidRequestPayload, "File size exceeds 100MB limit"))
 		return
 	}
 
@@ -81,13 +80,13 @@ func (eh *minioHandler) UploadFileV1(c *gin.Context) {
 		".webp": true,
 	}
 	if !allowedTypes[ext] {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "File type not allowed"})
+		_ = c.Error(platformError.NewError(platformConstants.InvalidRequestPayload, "File type not allowed"))
 		return
 	}
 
 	objectName, err := eh.service.UploadFile(c, file, bucketName, filename)
 	if err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to upload file", "error_message": err.Error()})
+		_ = c.Error(platformError.ErrInternalServerError)
 		return
 	}
 
@@ -209,19 +208,19 @@ func (eh *minioHandler) GetFileURLV1(c *gin.Context) {
 func (eh *minioHandler) GetFile(c *gin.Context) {
 	objectName := c.Param("filename")
 	if objectName == "" {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "Filename is required"})
+		_ = c.Error(platformError.NewError(platformConstants.InvalidRequestPayload, "Filename is required"))
 		return
 	}
 
 	bucketName := c.Query("bucket_name")
 	if bucketName == "" {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "Bucket name is required"})
+		_ = c.Error(platformError.NewError(platformConstants.InvalidRequestPayload, "Bucket name is required"))
 		return
 	}
 
 	reader, err := eh.service.GetFile(c, objectName, bucketName)
 	if err != nil {
-		c.JSON(http.StatusNotFound, gin.H{"error": "File not found"})
+		_ = c.Error(platformError.ErrEntityNotFound)
 		return
 	}
 	defer reader.Close()

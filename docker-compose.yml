@@ -2,6 +2,7 @@ name: go-integration-minio
 services:
   go-integration-minio:
     container_name: go-integration-minio
+    restart: unless-stopped
     build:
       context: .
       dockerfile: debug/Dockerfile
@@ -22,6 +23,7 @@ services:
   minio:
     image: minio/minio:latest
     container_name: minio
+    restart: unless-stopped
     ports:
       - "9000:9000"
       - "9001:9001"

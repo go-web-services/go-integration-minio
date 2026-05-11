@@ -1,81 +1,148 @@
-# go-integration-minio
+Visit main page: [https://github.com/go-web-services](https://github.com/go-web-services)
 
-HTTP integration service that fronts [MinIO](https://min.io/) object storage: upload, delete, read content, presigned URLs, and direct download. It is intended to sit behind your API gateway or to be called by other internal services that need a stable, JSON-first interface over S3-compatible storage.
+# Go Web Services - go-integration-minio
+
+`github.com/go-web-services/go-integration-minio`
+
+HTTP integration service that fronts [MinIO](https://min.io/) (S3-compatible) object storage. It provides a stable, JSON-first interface over the raw S3 API — upload, delete, read content, presigned URLs, and direct download. Intended to sit behind your API gateway or to be called directly by internal services.
+
+---
 
 ## Responsibilities
 
-- Accept multipart uploads with optional custom base filename; stored objects are prefixed with a timestamp.
+- Accept multipart file uploads; stored objects are prefixed with a timestamp. Base filename is optional.
 - Delete objects by bucket and key.
-- Return file body as JSON (string) or stream binary with sensible `Content-Type` for downloads.
-- Issue time-limited presigned GET URLs.
+- Return file body as a JSON string (`content` field) for programmatic access.
+- Stream binary downloads with appropriate `Content-Type`; images are inlined, other types served as attachments.
+- Issue time-limited presigned GET URLs for client-side access.
 
-Configuration is environment-driven (see `.env.sample`): MinIO endpoint, credentials, TLS, app port, and environment name for logging.
+---
 
-## API examples (JSON)
+## Configuration
 
-**Delete file**
+| Variable | Purpose | Default |
+|----------|---------|---------|
+| `APP_PORT` | HTTP listen port | — |
+| `APP_ENV` | Environment (`dev` / `prod`) | — |
+| `MINIO_ENDPOINT` | MinIO host and port | `localhost:9000` |
+| `MINIO_ACCESS_KEY` | MinIO access key | `minioadmin` |
+| `MINIO_SECRET_KEY` | MinIO secret key | `minioadmin` |
+| `MINIO_USE_SSL` | Enable TLS for MinIO connection | `false` |
 
-```json
-{
-  "fileName": "20260101120000-report.pdf",
-  "bucketName": "my-bucket"
-}
+---
+
+## Run locally
+
+```bash
+git clone git@github.com:go-web-services/go-integration-minio.git
+cd go-integration-minio
+cp .env.sample .env
+# Set MINIO_ENDPOINT, MINIO_ACCESS_KEY, MINIO_SECRET_KEY
+docker compose up -d
 ```
 
-**Delete response**
+MinIO itself must be running and reachable at `MINIO_ENDPOINT`. The MinIO console is typically available at port `9001`.
+
+---
+
+## Docker
+
+- **Dev** (hot reload via `debug/Dockerfile`):
+  ```bash
+  docker compose up -d
+  ```
+- **Prod**:
+  ```bash
+  docker compose -f docker-compose-prod.yml up --build
+  ```
+
+---
+
+## API surface
+
+Swagger UI is available at `/swagger`.
+
+### Delete file
+
+`POST /api/v1/minio/delete`
 
 ```json
-{
-  "message": "File deleted successfully"
-}
+{ "fileName": "20260101120000-report.pdf", "bucketName": "my-bucket" }
 ```
 
-**Get file content (request)**
+Response: `{ "message": "File deleted successfully" }`
+
+### Get file content
+
+`POST /api/v1/minio/content`
 
 ```json
-{
-  "fileName": "20260101120000-report.pdf",
-  "bucketName": "my-bucket"
-}
+{ "fileName": "20260101120000-report.pdf", "bucketName": "my-bucket" }
 ```
 
-**Get file content (response)**
+Response: `{ "content": "<file bytes as string>" }`
+
+### Presigned URL
+
+`POST /api/v1/minio/url`
 
 ```json
-{
-  "content": "<file bytes as string>"
-}
+{ "fileName": "20260101120000-photo.jpg", "bucketName": "my-bucket" }
 ```
 
-**Presigned URL (request)**
+Response: `{ "url": "https://minio.example/bucket/object?X-Amz-Algorithm=..." }`
 
-```json
-{
-  "fileName": "20260101120000-photo.jpg",
-  "bucketName": "my-bucket"
-}
+### Upload file
+
+`POST /api/v1/minio/upload` — multipart form
+
+| Field | Type | Required | Notes |
+|-------|------|----------|-------|
+| `file` | file | Yes | File to upload |
+| `bucket_name` | string | Yes | Target bucket |
+| `filename` | string | No | Override base name (without forcing extension) |
+
+Response: `{ "fileName": "20260101120000-report.pdf", "message": "File uploaded successfully" }`
+
+### Direct download
+
+`GET /api/v1/minio/file/{filename}?bucket_name=my-bucket`
+
+Returns the object body. Images are inlined (`Content-Disposition: inline`); other types use `Content-Disposition: attachment`.
+
+---
+
+## Client module (`pkg/client`)
+
+Other services import `github.com/go-web-services/go-integration-minio/pkg/client` for typed DTOs and the `MinioAPIService` HTTP client.
+
+```go
+import (
+    clientapi "github.com/go-web-services/go-integration-minio/pkg/client/service"
+    "github.com/go-web-services/go-integration-minio/pkg/client/dto"
+)
+
+svc := clientapi.NewMinioAPIService("http://localhost:8030")
+result, err := svc.UploadV1(ctx, fileBytes, "my-bucket", "report.pdf")
 ```
 
-**Presigned URL (response)**
+For local development in a consuming service:
 
-```json
-{
-  "url": "https://minio.example/bucket/object?X-Amz-Algorithm=..."
-}
+```bash
+go mod edit -replace github.com/go-web-services/go-integration-minio=/path/to/go-integration-minio
 ```
 
-**Upload (multipart)** — form fields: `file` (file), `bucket_name` (string, required), `filename` (string, optional base name without forcing extension).
+---
 
-**Upload (response)**
+## Private dependencies
 
-```json
-{
-  "fileName": "20260101120000-report.pdf",
-  "message": "File uploaded successfully"
-}
+```bash
+export GOPRIVATE='github.com/go-web-services/*'
 ```
 
-**Download** — `GET /api/v1/minio/file/{filename}?bucket_name=my-bucket` returns the object body; images are typically inlined, other types use `Content-Disposition: attachment`.
+This service depends on `go-web-platform`.
+
+---
 
 ## Author
 
